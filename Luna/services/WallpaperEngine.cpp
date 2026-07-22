@@ -1,0 +1,2 @@
+#include "WallpaperEngine.hpp"
+namespace luna { void WallpaperEngine::add(std::filesystem::path path){ slides_.push_back(std::move(path)); } std::filesystem::path WallpaperEngine::current() const{ return slides_.empty()?std::filesystem::path{}:slides_[index_%slides_.size()]; } std::filesystem::path WallpaperEngine::next(){ if(!slides_.empty()) index_=(index_+1)%slides_.size(); return current(); } }
