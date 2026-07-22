@@ -1,0 +1,2 @@
+#include "NotificationCenter.hpp"
+namespace luna { void NotificationCenter::push(std::string title,std::string body){ items_.push_back({std::move(title),std::move(body),false}); } int NotificationCenter::unread() const{ int n=0; for(const auto& i:items_) if(!i.read) ++n; return n;} std::vector<Notification> NotificationCenter::list() const{return items_;} void NotificationCenter::markAllRead(){ for(auto& i:items_) i.read=true; } }

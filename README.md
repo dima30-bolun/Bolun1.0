@@ -1,40 +1,15 @@
-# Bolun 1.0
+# Luna
 
-Bolun 1.0 is configured as a native-only workspace. New source code must be written only in:
-
-- C (`.c`, `.h`)
-- C++ (`.cpp`, `.hpp`, `.cc`, `.hh`)
-- C# (`.cs`, `.csproj`) for built-in applications and games only
-- Assembly (`.asm`, `.s`, `.S`, `.inc`)
-
-Python and Java are intentionally excluded from the source tree and from the build flow.
+Luna is an original C++20, CMake, Qt6/QML desktop shell project for Ubuntu Linux with a modular MVVM-ready service architecture. The current tree contains working native services, custom `.ben`, `.bapp` and `.luna` format support, a runtime, SDK builder, a control utility, resources, localization files, generated binary assets and a Qt6 shell target that is enabled automatically when Qt6 is installed.
 
 ## Build
 
-Build the native demonstration binary:
-
 ```sh
-make
+cmake -S . -B build
+cmake --build build
+ctest --test-dir build --output-on-failure
 ```
 
-Run it:
+PNG icons are generated inside `build/generated-assets` and are not committed as binary repository files.
 
-```sh
-make run
-```
-
-Clean generated objects and binaries:
-
-```sh
-make clean
-```
-
-## Optional C# built-in app/game compilation
-
-C# is permitted only under `src/csharp/` for built-in applications and games. If a C# compiler is installed, run:
-
-```sh
-make csharp
-```
-
-The C# target uses `dotnet`, `csc`, or `mcs` when one is available. No Python or Java tooling is used.
+If Qt6 Core, Gui, Qml and Quick are present, the `luna-shell` Wayland/X11 QML shell is built. Without Qt6, the native runtime, SDK and service tests still build so the project remains verifiable on minimal Ubuntu images.
